@@ -1,0 +1,26 @@
+{
+    "db": {
+        "connectionLimit": 100,
+        "host": "reminder-api.hm",
+        "username": "root",
+        "password": "123456",
+        "database": "tn",
+        "debug": false,
+        "timezone": "Europe/Berlin",
+        "forceSchema": true,
+        "allowDestructiveSync": true
+    },
+    "i18n": {
+        "locales": ["en"],
+        "defaultLocale": "en",
+        "cookie": "locale"
+    },
+    "fileStorage": "/var/tmp/",
+    "staticLocation": "client",
+    "assetsLocation": "client",
+    "url": "http://reminder-api.hm",
+    "app": {
+        "name": "reminder-api - dev"
+    },
+    "logRequests": true
+}

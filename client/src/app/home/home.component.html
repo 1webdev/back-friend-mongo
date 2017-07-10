@@ -1,0 +1,145 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand">TOURNAMENT</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+<div class="container" style="padding-top: 20px;">
+
+    <!-- Marketing Icons Section -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Welcome to Poker Tournament
+            </h1>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>
+                            <i class="fa fa-fw fa-check"></i> Players
+                            <button class="btn btn-sm btn-primary pull-right" (click)="createPlayer();">Add Player</button>
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered" *ngIf="players.length">
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Ballance</th>
+                                <th>Add</th>
+                            </tr>
+                            <tr *ngFor="let player of players; let i = index;">
+                                <td>{{ i+1 }}</td>
+                                <td>
+                                    <div *ngIf="player._id; then user_exist else user_new"></div>
+                            <ng-template #user_exist>{{ player.name }}</ng-template>
+                            <ng-template #user_new><input [(ngModel)]="players[i].name" class="form-control" value=""></ng-template>
+
+                            </td>
+                            <td>{{ player.ballance }}</td>
+                            <td>
+                                <div *ngIf="player._id; then user_exist_action else user_new_action"></div>
+                            <ng-template #user_exist_action>
+                                <div class="form-inline">
+                                    <input [(ngModel)]="players[i].fund" (keypress)="_keyPressInt($event)" style="width: 60px;" class="form-control" value="{{ player.fund }}" />
+                                    <button class="btn btn-sm btn-success" (click)="addCoinsPlayer(i, 'fund');">Fund</button>
+                                    <button class="btn btn-sm btn-danger" (click)="addCoinsPlayer(i, 'take');">Take</button>
+                                </div>
+                            </ng-template>
+                            <ng-template #user_new_action><button class="btn btn-sm btn-success" (click)="savePlayer(i);">Save</button></ng-template>
+                            </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-check"></i> Announcement Tournament</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-inline">
+                            <label class="mr-sm-2" for="amount">Amount</label>
+                            <input (keypress)="_keyPressInt($event)" [(ngModel)]="amount" id="amount" type="text" value="{{ amount }}" class="form-control">
+                            <button type="button" class="btn btn-success" (click)="announcement(); ">Submit</button>
+                        </div>
+                        
+                        <div *ngIf="createdPlayers().length" class="form-inline">
+                            <hr />
+                            <select class="form-control" (change)="getBalance($event.target.value)">
+                                <option value="0">Select player to get ballance</option>
+                                <option *ngFor="let P of createdPlayers()" value="{{P._id}}">{{P.name}}</option>
+                            </select>
+                            <span *ngIf="ballance != -1">Ballance: {{ballance}}</span>
+                        </div>
+                        
+                        <hr />
+                        <div style="text-align:center">
+                            <button class="btn btn-lg btn-danger" (click)="resetData()">RESET DB</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div *ngIf="tournaments.length" class="row">
+        <div class="col-md-6" *ngFor="let tournament of tournaments; let i = index;">
+             <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4><i class="fa fa-fw fa-check"></i> #{{ i+1 }} Tournament: {{ tournament.amount }} coins</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="panel-heading">Possible Players</div>
+                    <table class="table table-bordered" *ngIf="createdPlayers().length">
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                        <tr *ngFor="let player of createdPlayers(); let i = index;">
+                            <td>{{ i+1 }}</td>
+                            <td>{{ player.name }}({{ player.ballance }} coins)</td>
+                            <td>
+                                
+                                <div *ngIf="tournamentsBakers && tournamentsBakers[tournament._id] && tournamentsBakers[tournament._id][player._id]; then backer_action else no_backer_action"></div>
+                                <ng-template #backer_action>
+                                    <span>IS BACKER</span>
+                                </ng-template>
+                                <ng-template #no_backer_action>
+                                    <button *ngIf="_checkJoin(tournament, player._id, player.ballance);" [class]="_setJoinClass(tournament.amount, player.ballance)" (click)="joinTournament(tournament._id, player)">JOIN</button>
+                                    <span *ngIf="_checkJoined(tournament, player._id);">JOINED</span>
+                                </ng-template>
+                            </td>
+                        </tr>
+                    </table>
+                    <div *ngIf="tournament.players && tournament.players.length >= 2 && tournament.status == 'open'">
+                    <hr />
+                    <button (click)="resultTournament(tournament._id);" class="btn btn-lg btn-success">Start Tournament</button>
+                    </div>
+                    <div *ngIf="tournament.status == 'played'">
+                        <span><b>WINNER:</b> {{playersData[tournament.winner._id] && playersData[tournament.winner._id].name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <hr>
+
+</div>

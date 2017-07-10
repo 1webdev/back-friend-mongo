@@ -1,0 +1,27 @@
+{
+  "name": "tournament-node-js",
+  "description": "",
+  "version": "0.0.1",
+  "author": "",
+  "scripts": {
+    "start": "node --expose-gc --harmony server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "compression": "^1.6.2",
+    "express": "^4.15.3",
+    "express-validator": "^3.2.0",
+    "gulp": "^3.9.1",
+    "gulp-dir": "^1.0.0",
+    "method-override": "^2.3.9",
+    "mongodb": "^2.2.29",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.6.2",
+    "gulp-nodemon": "latest"
+  },
+  "engines": {
+    "node": "^7.7.4"
+  }
+}
