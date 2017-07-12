@@ -1,0 +1,15 @@
+version: "2"
+services:
+    mongo:
+        image: mongo
+        ports:
+            - "27017:27017"
+    web:
+        build: .
+        ports:
+            - "3000:3000"
+        links:
+            - mongo
+        volumes:
+            - ./:/usr/src/app
+        

@@ -14,5 +14,4 @@ if (process.env.PORT)
 
 // Domain
 if (process.env.DOMAIN)
-    module.exports.domain = process.env.DOMAIN;
-
+module.exports.domain = process.env.DOMAIN;

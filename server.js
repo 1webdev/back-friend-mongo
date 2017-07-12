@@ -15,7 +15,6 @@ var app = express();
 // Configuration
 require('./config/express')(app);
 
-
 MongoClient.connect(config.db.url, function (err, db) {
     if(err) {
         throw err;
@@ -26,4 +25,3 @@ MongoClient.connect(config.db.url, function (err, db) {
         console.log('run node server');
     });
 });
-

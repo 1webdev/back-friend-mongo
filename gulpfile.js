@@ -24,7 +24,7 @@ gulp.task('app', function() {
             delayTime: 1,
             env: {
                 NODE_ENV: 'local',
-                PORT: 3015,
+                PORT: 8080,
             }
         });
 });
