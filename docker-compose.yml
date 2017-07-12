@@ -12,4 +12,5 @@ services:
             - mongo
         volumes:
             - ./:/usr/src/app
+            - /usr/src/app/node_modules
         
