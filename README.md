@@ -6,9 +6,11 @@ MongoDB version (to make two task results not quite identical - we went a bit di
 
 To check the result you just need to run these two commands:
 
-```git clone https://github.com/1webdev/back-friend-mongo.git . ```
+```
+git clone https://github.com/1webdev/back-friend-mongo.git .
 
-```docker-compose up```
+docker-compose up
+```
 
 and then use http://localhost:3000 in your browser address bar.
 
