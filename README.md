@@ -1,29 +1,24 @@
-# README #
+# Back A Friend #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+MongoDB version (to make two task results not quite identical - we went a bit different technical and logic ways)
 
-### What is this repository for? ###
+## Installing / Getting started ##
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+To check the result you just need to run these two commands:
 
-### How do I get set up? ###
+```git clone https://github.com/1webdev/back-friend-mongo.git . 
+   docker-compose up
+```
+and then use http://localhost:3000 in your browser address bar.
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
 
-### Contribution guidelines ###
+## Testing ##
 
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+1. Add players using Add player button and fund them points (you can increase and decrease their points using Fund and Take buttons accordingly)
+2. Announce the tournament with required deposit amount
+3. Join the tournament:
+* Players who have enough points to join the tournament have green Join button and can join it immediately
+* Players who haven't enough points can click yellow Join button and system will recursively select possible backers and player automatically joins the tournament when required points are reached 
+5. Start tournament to get random winner (balance is updated automatically)
+6. You can also select required player from dropdown list to check his balance only.
+7. You can revert all the changes clicking RESET DB button
